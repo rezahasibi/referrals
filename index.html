@@ -3,362 +3,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RefPro | مرجع هوشمند کدهای دعوت و پاداش نقدی</title>
+    <title>مرجع رسمی کدهای هدیه و رفرال | رضا حسیبی</title>
+    <meta name="description" content="مجموعه کامل و بروز کدهای معرف ویپاد، اسنپ، تپسی، بلوبانک و غیره با هدایای نقدی ویژه. تایید شده توسط رضا حسیبی.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- External Assets -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
     
-    <script>
-        tailwind.config = {
-            darkMode: 'media',
-            theme: {
-                extend: {
-                    colors: {
-                        tapsi: '#ff4400',
-                        wepod: '#00b050', // تغییر به سبز اختصاصی ویپاد
-                        snapp: '#00d170',
-                        kifpool: '#1e40af',
-                    },
-                    fontFamily: { sans: ['Vazirmatn', 'sans-serif'] },
-                }
-            }
-        }
-    </script>
-
     <style>
-        .glass { @apply bg-white/70 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/20 dark:border-slate-800/50; }
-        .gradient-text { @apply bg-clip-text text-transparent bg-gradient-to-r from-orange-600 via-indigo-600 to-emerald-600; }
-        .feature-tag { @apply flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50 transition-colors hover:bg-white dark:hover:bg-slate-700; }
-        .card-inner { @apply transition-all duration-500 hover:shadow-2xl hover:-translate-y-3; }
-        .benefit-list li { @apply flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed; }
-        .benefit-list li svg { @apply mt-1 shrink-0; }
-        .section-divider { @apply h-px w-full bg-gradient-to-l from-transparent via-slate-200 dark:via-slate-800 to-transparent my-8; }
-        html { scroll-behavior: smooth; }
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --dark-deep: #020617;
+            --glass: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.07);
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--dark-deep);
+            color: #f1f5f9;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Animated Mesh Background */
+        .bg-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 10% 10%, #1e1b4b 0%, transparent 40%),
+                        radial-gradient(circle at 90% 90%, #312e81 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, #020617 0%, transparent 100%);
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #fb7185 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .copy-button {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:active { transform: scale(0.95); }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-icon { animation: float 4s ease-in-out infinite; }
+
+        .category-pill {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .category-pill.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-[#f8fafc] dark:bg-[#020617] text-slate-900 dark:text-slate-100 antialiased leading-relaxed">
+<body>
+    <div class="bg-canvas"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 p-4 sm:p-6">
-        <div class="max-w-6xl mx-auto glass rounded-[2rem] sm:rounded-[2.5rem] px-6 sm:px-8 py-3 sm:py-4 flex justify-between items-center shadow-2xl">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-orange-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-600/20">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-black tracking-tighter italic uppercase">REF<span class="text-orange-600 dark:text-orange-400 font-black">PRO</span></span>
-                </div>
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-5 flex justify-between items-center backdrop-blur-xl bg-black/30 border-b border-white/5">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-gradient-to-tr from-indigo-600 to-pink-600 rounded-lg shadow-lg">
+                <i class="fa-solid fa-gem text-white"></i>
             </div>
-            
-            <div class="flex items-center gap-4">
-                <span class="hidden sm:flex items-center gap-1.5 text-[11px] font-black text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full uppercase">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span> تیم ما آنلاین است
-                </span>
-                <a href="https://t.me/rezahasibi" class="bg-indigo-600 text-white p-2 rounded-xl hover:bg-indigo-700 transition-all">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.52.35-.98.53-1.39.52-.45-.01-1.31-.25-1.95-.46-.78-.26-1.4-.4-1.35-.85.03-.24.35-.48.96-.74 3.76-1.63 6.27-2.71 7.51-3.23 3.58-1.51 4.32-1.77 4.81-1.78.11 0 .35.03.5.16.13.1.17.23.18.33.01.07.01.21 0 .33z"/></svg>
-                </a>
-            </div>
+            <span class="text-xl font-black tracking-tighter">REZA <span class="text-indigo-400">HASIBI</span></span>
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="https://t.me/rezahasibi" class="hidden sm:flex items-center gap-2 text-xs font-bold text-gray-300 hover:text-white transition-all">
+                <i class="fab fa-telegram text-blue-400"></i> @rezahasibi
+            </a>
+            <div class="h-4 w-[1px] bg-white/10 hidden sm:block"></div>
+            <a href="#contact" class="text-xs font-black uppercase tracking-widest text-indigo-400 hover:text-indigo-300">تماس</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-40 pb-12 px-6 max-w-6xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-black mb-8 border border-indigo-100 dark:border-indigo-800/50 shadow-sm">
-            🚀 مرجع تایید شده کدهای دعوت (آپدیت زمستان ۱۴۰۴)
+    <!-- Hero -->
+    <header class="relative pt-44 pb-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-8xl font-black mb-8 leading-[1.1]">
+                با یک کلیک <br> <span class="gradient-text tracking-tighter">هدیه‌ات را دریافت کن</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
+                مجموعه‌ای از برترین کدهای معرف اپلیکیشن‌های بانکی و خدماتی که توسط من تایید شده‌اند. سودمندترین ثبت‌نام زندگی‌تان را تجربه کنید.
+            </p>
+            
+            <!-- Dynamic Filters -->
+            <div class="flex flex-wrap justify-center gap-3 overflow-x-auto pb-4">
+                <button onclick="filterCards('all')" class="category-pill active px-6 py-2 rounded-full text-xs font-bold">همه</button>
+                <button onclick="filterCards('bank')" class="category-pill px-6 py-2 rounded-full text-xs font-bold">بانک و مالی</button>
+                <button onclick="filterCards('travel')" class="category-pill px-6 py-2 rounded-full text-xs font-bold">سفر و حمل‌ونقل</button>
+                <button onclick="filterCards('digital')" class="category-pill px-6 py-2 rounded-full text-xs font-bold">دیجیتال و کتاب</button>
+            </div>
         </div>
-        <h1 class="text-4xl md:text-7xl font-[900] mb-8 leading-[1.3] tracking-tight text-slate-900 dark:text-white">
-            هر دعوت یک فرصت؛ <br> <span class="gradient-text tracking-tighter">هوشمندانه پاداش بگیرید</span>
-        </h1>
-        <p class="text-slate-500 dark:text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium">
-            تیم ما با بررسی دقیق شرایط هر سرویس، فعال‌ترین کدهای دعوت را برای شما آماده کرده است. جوایز نقدی، وام‌های فوری و تخفیف‌های سفر در انتظار شماست.
-        </p>
-    </section>
+    </header>
 
     <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-6 py-10 space-y-20">
-
-        <!-- KifPool Section (Blue) -->
-        <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl hover:shadow-blue-500/10 border-r-[6px] border-kifpool">
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-                <div class="lg:col-span-7 p-8 md:p-14">
-                    <div class="flex items-center gap-5 mb-10">
-                        <div class="w-20 h-20 bg-kifpool rounded-[2.5rem] flex items-center justify-center text-white shadow-2xl shadow-blue-500/40 font-black text-4xl transform rotate-3">K</div>
-                        <div>
-                            <h2 class="text-4xl font-black text-kifpool">کیف‌پول من (KifPool)</h2>
-                            <p class="text-slate-500 font-bold text-sm">صرافی ارز دیجیتال و خدمات پرداخت نوین</p>
+    <main class="max-w-7xl mx-auto px-6 pb-32">
+        <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Vypod Card -->
+            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-2 shadow-xl">
+                            <img src="https://vypod.ir/assets/images/logo.png" alt="ویپاد" class="max-w-full" onerror="this.src='https://via.placeholder.com/100?text=Vypod'">
                         </div>
+                        <span class="text-[10px] font-black text-indigo-400 border border-indigo-400/30 px-3 py-1 rounded-full uppercase">دیجیتال بانک پاسارگاد</span>
                     </div>
-                    
-                    <div class="space-y-8 text-right">
-                        <div>
-                            <h4 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                                <span class="w-1.5 h-6 bg-kifpool rounded-full"></span>
-                                هدیه ویژه ورود به صرافی:
-                            </h4>
-                            <ul class="benefit-list">
-                                <li>
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span><strong>توکن رایگان (Airdrop):</strong> بلافاصله پس از ثبت‌نام و احراز هویت با لینک تیم ما، مقداری توکن رایگان به عنوان هدیه خوش‌آمدگویی دریافت کنید.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span><strong>خدمات بانکی با کریپتو:</strong> امکان خرید شارژ، اینترنت و پرداخت قبوض مستقیم از طریق دارایی‌های دیجیتال شما.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    <span><strong>امنیت و سرعت:</strong> کیف‌پول اختصاصی با امنیت چندلایه و امکان خرید و فروش بیش از ۲۰۰۰ ارز دیجیتال مختلف.</span>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <div class="section-divider"></div>
-                        
-                        <div class="flex flex-wrap gap-2.5">
-                            <span class="feature-tag">بازار معاملاتی</span>
-                            <span class="feature-tag">خرید شارژ و قبض</span>
-                            <span class="feature-tag">ووچر پرفکت مانی</span>
-                            <span class="feature-tag">پشتیبانی ۲۴ ساعته</span>
-                        </div>
-                    </div>
+                    <h3 class="text-2xl font-black mb-4">ویپاد (بانک پاسارگاد)</h3>
+                    <ul class="text-gray-400 text-sm space-y-3 mb-8">
+                        <li><i class="fa fa-check-circle text-indigo-500 ml-2"></i>دریافت تسهیلات بدون ضامن تا ۴۰۰ میلیون</li>
+                        <li><i class="fa fa-check-circle text-indigo-500 ml-2"></i>افتتاح حساب رایگان و ارسال کارت به درب منزل</li>
+                        <li><i class="fa fa-check-circle text-indigo-500 ml-2"></i>انتقال وجه تا ۲ میلیارد تومان</li>
+                    </ul>
                 </div>
-                
-                <div class="lg:col-span-5 bg-gradient-to-b from-blue-50/50 to-transparent dark:from-blue-950/10 p-8 md:p-14 flex flex-col justify-center items-center border-r border-slate-100 dark:border-slate-800">
-                    <div class="w-full max-w-xs space-y-8 text-center">
-                        <div class="relative group">
-                            <span class="text-[10px] font-black tracking-[0.4em] text-blue-600/60 uppercase mb-3 block">کد دعوت تایید شده</span>
-                            <div class="p-6 bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-kifpool/40 shadow-2xl shadow-blue-500/5 group-hover:border-kifpool transition-colors duration-300">
-                                <code id="kifpool-code" class="text-3xl font-black text-kifpool tracking-tight font-mono uppercase">Y5aw5BvMDZML</code>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <button onclick="copy('kifpool-code')" class="w-full py-5 bg-kifpool hover:bg-blue-700 text-white rounded-[1.5rem] font-black shadow-2xl shadow-blue-500/40 transition-all active:scale-95 flex items-center justify-center gap-3">کپی کد و ثبت‌نام</button>
-                            <a href="https://kifpool.me/member_v2/register?referral=Y5aw5BvMDZML" target="_blank" class="block w-full py-5 bg-slate-900 text-white rounded-[1.5rem] font-black hover:bg-slate-800 transition-all text-sm shadow-xl">ورود مستقیم و دریافت هدیه</a>
-                        </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('CR5J3O', this)">
+                        <span class="text-xs text-gray-500">کد دعوت:</span>
+                        <code class="text-lg font-black text-indigo-300 tracking-[4px]">CR5J3O</code>
+                        <i class="fa fa-copy text-indigo-500"></i>
                     </div>
+                    <a href="https://tilin.ir/DownLoad" target="_blank" class="block text-center w-full py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-bold transition-all border border-white/5">دانلود مستقیم اپلیکیشن</a>
                 </div>
             </div>
-        </div>
 
-        <!-- Wepod Section (New Green Theme) -->
-        <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl border-r-[6px] border-wepod">
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-                <div class="lg:col-span-7 p-8 md:p-14">
-                    <div class="flex items-center gap-5 mb-10">
-                        <div class="w-20 h-20 bg-wepod rounded-[2.5rem] flex items-center justify-center text-white shadow-2xl shadow-wepod/30 font-black text-4xl transform rotate-3">W</div>
-                        <div>
-                            <h2 class="text-4xl font-black text-wepod tracking-tight">ویپاد (Wepod)</h2>
-                            <p class="text-slate-500 font-bold text-sm">ترابانک پاسارگاد؛ بانک در جیب شما</p>
+            <!-- Snapp Card -->
+            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="travel">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center p-2">
+                            <i class="fa-solid fa-car text-white text-2xl"></i>
                         </div>
+                        <span class="text-[10px] font-black text-emerald-400 border border-emerald-400/30 px-3 py-1 rounded-full uppercase">سوپر اپلیکیشن</span>
                     </div>
-                    
-                    <div class="space-y-8 text-right">
-                        <div>
-                            <h4 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                                <span class="w-1.5 h-6 bg-wepod rounded-full"></span>
-                                چرا باید همین حالا ویپاد را نصب کنید؟
-                            </h4>
-                            <ul class="benefit-list">
-                                <li>
-                                    <svg class="w-6 h-6 text-wepod" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                                    <span><strong>تسهیلات بدون ضامن:</strong> دریافت وام‌های خرد (حساب پشتوانه) از ۱ تا ۵۰ میلیون تومان بدون نیاز به چک، سفته یا ضامن؛ فقط بر اساس کارکرد حساب.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-wepod" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                                    <span><strong>حساب دیجیتال رایگان:</strong> افتتاح حساب در کمتر از ۵ دقیقه، صدور کارت فیزیکی با طرح‌های متنوع و ارسال رایگان به سراسر ایران.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-wepod" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                                    <span><strong>هدیه دعوت تیم ما:</strong> با وارد کردن کد دعوت در مرحله اول، پاداش نقدی مستقیم و امتیاز اولیه برای دریافت وام به شما تعلق می‌گیرد.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h3 class="text-2xl font-black mb-4">اسنپ (Snapp)</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        اولین سفر خود را با تخفیف ویژه ۲۰ تا ۳۰ هزار تومانی تجربه کنید. دسترسی به غذا، پزشک و بلیت سفر در یک جا.
+                    </p>
                 </div>
-                
-                <div class="lg:col-span-5 bg-gradient-to-b from-wepod/5 to-transparent p-8 md:p-14 flex flex-col justify-center items-center border-r border-slate-100 dark:border-slate-800">
-                    <div class="w-full max-w-xs space-y-8 text-center">
-                        <div class="relative group">
-                            <span class="text-[10px] font-black tracking-[0.4em] text-wepod/60 uppercase mb-3 block">کد دعوت تایید شده ویپاد</span>
-                            <div class="p-6 bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-wepod/30 shadow-2xl shadow-wepod/5 group-hover:border-wepod transition-colors duration-300">
-                                <code id="vypad-code" class="text-4xl font-black text-wepod tracking-[0.2em] font-mono uppercase">CR5J3O</code>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <button onclick="copy('vypad-code')" class="w-full py-5 bg-wepod hover:bg-emerald-700 text-white rounded-[1.5rem] font-black shadow-2xl shadow-wepod/40 transition-all active:scale-95 flex items-center justify-center gap-3">کپی کد معرف</button>
-                            <a href="https://tilin.ir/DownLoad" target="_blank" class="block w-full py-5 border-2 border-slate-200 dark:border-slate-700 rounded-[1.5rem] font-black hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-sm shadow-lg">دانلود اپلیکیشن</a>
-                        </div>
-                    </div>
+                <div class="space-y-4">
+                    <a href="https://snapp.taxi/passenger/rezahasibi" target="_blank" class="copy-button block text-center w-full py-4 rounded-2xl text-sm font-bold shadow-lg shadow-emerald-500/20">دریافت تخفیف و ثبت‌نام</a>
                 </div>
             </div>
-        </div>
 
-        <!-- Tapsi Section (Orange) -->
-        <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl hover:shadow-orange-500/10 border-r-[6px] border-tapsi">
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-                <div class="lg:col-span-7 p-8 md:p-14">
-                    <div class="flex items-center gap-5 mb-10">
-                        <div class="w-20 h-20 bg-tapsi rounded-[2.5rem] flex items-center justify-center text-white shadow-2xl shadow-orange-500/40 font-black text-4xl transform -rotate-3">T</div>
-                        <div>
-                            <h2 class="text-4xl font-black text-tapsi">تپسی (Tapsi)</h2>
-                            <p class="text-slate-500 font-bold text-sm">سریع، هوشمند و همیشه در دسترس</p>
+            <!-- Nobitex / Saraf (Integrated from previous list + Saraf) -->
+            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center p-2 border border-amber-500/20">
+                            <i class="fa-solid fa-coins text-amber-500 text-2xl"></i>
                         </div>
+                        <span class="text-[10px] font-black text-amber-500 border border-amber-500/30 px-3 py-1 rounded-full uppercase">طلا و دلار</span>
                     </div>
-                    
-                    <div class="space-y-8 text-right">
-                        <div>
-                            <h4 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                                <span class="w-1.5 h-6 bg-tapsi rounded-full"></span>
-                                مزایای استفاده از کد دعوت تیم ما:
-                            </h4>
-                            <ul class="benefit-list">
-                                <li>
-                                    <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span><strong>هدیه نقدی سفر اول:</strong> بلافاصله پس از ثبت‌نام با کد تیم ما، مبلغ قابل توجهی اعتبار برای اولین سفر به کیف پول شما واریز می‌شود.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span><strong>اولویت در تپسی‌لاین:</strong> سفرهای اشتراکی را با قیمتی بسیار کمتر (تا ۴۰٪ ارزان‌تر) و کیفیت کلاسیک تجربه کنید.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    <span><strong>سرویس‌های اختصاصی:</strong> دسترسی به تپسی‌پک برای ارسال سریع مرسولات و تپسی‌تلفنی (۱۶۳۰) برای زمان‌هایی که اینترنت ندارید.</span>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <div class="section-divider"></div>
-                        
-                        <div class="flex flex-wrap gap-2.5">
-                            <span class="feature-tag">تپسی کلاسیک</span>
-                            <span class="feature-tag">تپسی لاین (اقتصادی)</span>
-                            <span class="feature-tag">موتوپیک (سریع)</span>
-                            <span class="feature-tag">تپسی VIP</span>
-                        </div>
-                    </div>
+                    <h3 class="text-2xl font-black mb-4">صراف (Saraf)</h3>
+                    <p class="text-gray-400 text-sm mb-6">۵۰ هزار تومان هدیه نقدی اولیه برای سرمایه‌گذاری در طلا، دلار و ارزهای دیجیتال بلافاصله پس از ثبت‌نام.</p>
                 </div>
-                
-                <div class="lg:col-span-5 bg-gradient-to-b from-orange-50/50 to-transparent dark:from-orange-950/10 p-8 md:p-14 flex flex-col justify-center items-center border-r border-slate-100 dark:border-slate-800">
-                    <div class="w-full max-w-xs space-y-8 text-center">
-                        <div class="relative group">
-                            <span class="text-[10px] font-black tracking-[0.4em] text-orange-600/60 uppercase mb-3 block">کد معرف طلایی تپسی</span>
-                            <div class="p-6 bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-tapsi/40 shadow-2xl shadow-orange-500/5 group-hover:border-tapsi transition-colors duration-300">
-                                <code id="tapsi-code" class="text-4xl font-black text-tapsi tracking-[0.2em] font-mono uppercase">90140V</code>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <button onclick="copy('tapsi-code')" class="w-full py-5 bg-tapsi hover:bg-orange-600 text-white rounded-[1.5rem] font-black shadow-2xl shadow-orange-500/40 transition-all active:scale-95 flex items-center justify-center gap-3">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-                                کپی کد و دریافت تخفیف
-                            </button>
-                            <a href="https://referral.tapsi.ir/passenger/90140V" target="_blank" class="block w-full py-5 bg-slate-900 text-white rounded-[1.5rem] font-black hover:bg-slate-800 transition-all text-sm shadow-xl">ورود مستقیم به تپسی</a>
-                        </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('Y9X9Z', this)">
+                        <code class="text-lg font-black text-amber-400 tracking-[4px]">Y9X9Z</code>
+                        <i class="fa fa-copy text-amber-500"></i>
                     </div>
+                    <a href="https://saraf.app/?ref=Y9X9Z" target="_blank" class="block text-center w-full py-3 bg-white/5 rounded-xl text-xs font-bold border border-white/5">لینک ثبت‌نام مستقیم</a>
                 </div>
             </div>
-        </div>
 
-        <!-- Snapp Section (Green) -->
-        <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl border-r-[6px] border-snapp">
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-                <div class="lg:col-span-7 p-8 md:p-14">
-                    <div class="flex items-center gap-5 mb-10">
-                        <div class="w-20 h-20 bg-snapp rounded-[2.5rem] flex items-center justify-center text-white shadow-2xl shadow-emerald-500/30 font-black text-4xl transform -rotate-3">S</div>
-                        <div>
-                            <h2 class="text-4xl font-black text-snapp">اسنپ (Snapp)</h2>
-                            <p class="text-slate-500 font-bold text-sm">بزرگترین سوپراپلیکیشن خاورمیانه</p>
+            <!-- Taaghche Card -->
+            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="digital">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center p-2">
+                            <i class="fa-solid fa-book-open text-sky-400 text-2xl"></i>
                         </div>
+                        <span class="text-[10px] font-black text-sky-400 border border-sky-400/30 px-3 py-1 rounded-full uppercase">کتابخانه دیجیتال</span>
                     </div>
-                    
-                    <div class="space-y-8 text-right">
-                        <div>
-                            <h4 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                                <span class="w-1.5 h-6 bg-snapp rounded-full"></span>
-                                چرا اسنپ برای شما ضروری است؟
-                            </h4>
-                            <ul class="benefit-list">
-                                <li>
-                                    <svg class="w-6 h-6 text-snapp" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span><strong>اولین سفر رایگان:</strong> با لینک دعوت تیم ما، اولین سفر شهری خود را تا سقف ۳۰,۰۰۰ تومان مهمان اسنپ باشید.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-snapp" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.704 2.704 0 01-1.5-.454M21 12.742c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.704 2.704 0 01-1.5-.454M21 9.939c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.704 2.704 0 01-1.5-.454M21 7.136c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.704 2.704 0 01-1.5-.454M21 4.333c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.703 2.703 0 01-3 0 2.704 2.704 0 01-1.5-.454"/></svg>
-                                    <span><strong>اسنپ‌فود و اسنپ‌مارکت:</strong> سفارش آنلاین غذا و کالاهای اساسی منزل با تخفیف‌های ویژه برای اعضای جدید.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-snapp" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                                    <span><strong>بلیت و هتل:</strong> رزرو ارزان‌ترین پروازها و هتل‌های داخلی و خارجی با استفاده از سیستم هوشمند اسنپ.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h3 class="text-2xl font-black mb-4">طاقچه (Taaghche)</h3>
+                    <ul class="text-gray-400 text-sm space-y-2 mb-8">
+                        <li><i class="fa fa-gift ml-2"></i>یک ماه استفاده رایگان از کتابخانه «بی‌نهایت»</li>
+                        <li><i class="fa fa-percent ml-2"></i>۳۰٪ تخفیف روی اولین خرید کتاب صوتی</li>
+                    </ul>
                 </div>
-                
-                <div class="lg:col-span-5 bg-emerald-50/30 dark:bg-emerald-950/10 p-8 md:p-14 flex flex-col justify-center items-center border-r border-slate-100 dark:border-slate-800">
-                    <div class="w-full max-w-xs space-y-8 text-center">
-                        <div class="relative">
-                            <span class="text-[10px] font-black tracking-[0.4em] text-emerald-600/60 uppercase mb-3 block">لینک دعوت فعال اسنپ</span>
-                            <div class="p-4 bg-white dark:bg-slate-900 rounded-[1.5rem] border-2 border-dashed border-snapp shadow-lg">
-                                <code class="text-xs font-black text-emerald-600 dark:text-emerald-400 font-mono">snapp.taxi/passenger/rezahasibi</code>
-                            </div>
-                        </div>
-                        <a href="https://snapp.taxi/passenger/rezahasibi" target="_blank" class="block w-full py-5 bg-snapp hover:bg-emerald-600 text-white rounded-[1.5rem] font-black shadow-2xl shadow-emerald-500/40 transition-all active:scale-95">دریافت هدیه و فعال‌سازی</a>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('invite30', this)">
+                        <code class="text-lg font-black text-sky-300">invite30</code>
+                        <i class="fa fa-clone text-sky-400"></i>
                     </div>
+                    <a href="https://taaghche.com/invitation/kxp8075945" target="_blank" class="block text-center w-full py-3 bg-sky-600 rounded-xl text-xs font-bold">دریافت هدیه بی‌نهایت</a>
                 </div>
             </div>
-        </div>
 
+            <!-- DigiPay -->
+            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-3 shadow-lg">
+                            <img src="https://www.mydigipay.com/static/media/digipay-logo.87e14e0f.svg" alt="دیجی پی">
+                        </div>
+                        <span class="text-[10px] font-black text-purple-400 border border-purple-400/30 px-3 py-1 rounded-full">پرداخت و وام</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">دیجی‌پی (DigiPay)</h3>
+                    <p class="text-gray-400 text-sm mb-6">دریافت اعتبار خرید اقساطی از دیجی‌کالا، خرید شارژ، پرداخت قبوض و کارت‌به‌کارت سریع با امنیت بالا.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('EQFGTS', this)">
+                        <code class="text-lg font-black text-purple-300 tracking-[3px]">EQFGTS</code>
+                        <i class="fa fa-copy text-purple-500"></i>
+                    </div>
+                    <a href="https://www.mydigipay.com/download" target="_blank" class="block text-center w-full py-3 bg-white/5 rounded-xl text-xs font-bold border border-white/5">دانلود و نصب</a>
+                </div>
+            </div>
+
+            <!-- Zypod -->
+            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 bg-pink-500/10 rounded-2xl">
+                            <i class="fa-solid fa-child-reaching text-2xl text-pink-400"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-pink-400 border border-pink-400/30 px-3 py-1 rounded-full">بانک کودک</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">زیپاد (Zypod)</h3>
+                    <p class="text-gray-400 text-sm mb-6">افتتاح حساب دیجیتال کودک و نوجوان بانک پاسارگاد. دریافت کارت بانکی با طرح‌های فانتزی و آموزش مدیریت مالی به فرزندان.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('17560743_zyp', this)">
+                        <code class="text-sm font-black text-pink-300">17560743_zyp</code>
+                        <i class="fa fa-copy text-pink-500"></i>
+                    </div>
+                    <a href="https://cafebazaar.ir/app/ir.zypod.app" target="_blank" class="block text-center w-full py-3 bg-pink-600/20 hover:bg-pink-600/30 text-pink-300 rounded-xl text-xs font-bold border border-pink-600/30">نصب از کافه بازار</a>
+                </div>
+            </div>
+
+            <!-- Shahr Bank -->
+            <div class="glass-card p-8 rounded-[3rem] flex flex-col justify-between" data-category="bank">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-building-columns text-white text-2xl"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-red-400 border border-red-400/30 px-3 py-1 rounded-full">همراه شهر پلاس</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">بانک شهر (City Bank)</h3>
+                    <p class="text-gray-400 text-sm mb-6">با نصب اپلیکیشن و افتتاح سپرده آنلاین، از خدمات مدرن بانک شهر با کد معرف ویژه بهره‌مند شوید.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('ecytbnqn', this)">
+                        <code class="text-lg font-black text-red-400">ecytbnqn</code>
+                        <i class="fa fa-copy text-red-500"></i>
+                    </div>
+                    <a href="https://www.shahr-bank.ir/general_content/114323/114323.htm" target="_blank" class="block text-center w-full py-3 bg-white/5 rounded-xl text-xs font-bold border border-white/5">صفحه رسمی بانک</a>
+                </div>
+            </div>
+
+            <!-- Tapsi -->
+            <div class="glass-card p-8 rounded-[3rem] flex flex-col justify-between" data-category="travel">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-taxi text-white text-2xl"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-orange-400 border border-orange-400/30 px-3 py-1 rounded-full uppercase">سفر امن</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">تپسی (Tapsi)</h3>
+                    <p class="text-gray-400 text-sm mb-6">سفری به‌صرفه و با کیفیت. با استفاده از این لینک، اولین سفر خود را مهمان تپسی باشید یا تخفیف ویژه بگیرید.</p>
+                </div>
+                <a href="https://referral.tapsi.ir/passenger/90140V" target="_blank" class="block text-center w-full py-4 bg-orange-500 text-white rounded-2xl font-black text-sm shadow-lg shadow-orange-500/20">دریافت هدیه تپسی</a>
+            </div>
+
+            <!-- KifPool -->
+            <div class="glass-card p-8 rounded-[3rem] flex flex-col justify-between" data-category="bank">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-14 h-14 bg-indigo-600/20 rounded-2xl flex items-center justify-center border border-indigo-600/30">
+                            <i class="fa-solid fa-wallet text-indigo-400 text-2xl"></i>
+                        </div>
+                        <span class="text-[10px] font-black text-indigo-300 border border-indigo-300/30 px-3 py-1 rounded-full">کیف پول من</span>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">KifPool.me</h3>
+                    <p class="text-gray-400 text-sm mb-6">خرید و فروش ارزهای دیجیتال، پرداخت قبوض و خرید آنلاین با امنیت فوق‌العاده بالا و رابط کاربری فارسی.</p>
+                </div>
+                <a href="https://kifpool.me/member_v2/register?referral=Y5aw5BvMDZML" target="_blank" class="block text-center w-full py-4 bg-indigo-600 text-white rounded-2xl font-black text-sm">ثبت‌نام و دریافت پاداش</a>
+            </div>
+
+        </div>
     </main>
 
-    <!-- Support Section -->
-    <section class="max-w-6xl mx-auto px-6 py-24">
-        <div class="relative rounded-[4rem] p-12 md:p-24 overflow-hidden text-center bg-slate-900 text-white shadow-2xl shadow-indigo-500/20">
-            <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/20 via-transparent to-orange-500/10"></div>
-            
-            <div class="relative z-10">
-                <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">تیم ما، همراه همیشگی شما</h2>
-                <p class="text-slate-400 mb-14 max-w-2xl mx-auto text-lg md:text-xl font-medium">
-                    ما فقط کد نمی‌دهیم، ما تا لحظه دریافت پاداش در کنار شما هستیم. اگر سوالی دارید یا در فعال‌سازی به مشکل خوردید، همین حالا با ما تماس بگیرید.
-                </p>
-                
-                <div class="flex flex-wrap justify-center gap-6">
-                    <a href="https://t.me/rezahasibi" class="flex items-center gap-4 px-12 py-6 bg-sky-500 hover:bg-sky-600 text-white rounded-3xl font-black shadow-2xl shadow-sky-500/30 transition-all hover:-translate-y-2 group">
-                        <svg class="w-7 h-7 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.52.35-.98.53-1.39.52-.45-.01-1.31-.25-1.95-.46-.78-.26-1.4-.4-1.35-.85.03-.24.35-.48.96-.74 3.76-1.63 6.27-2.71 7.51-3.23 3.58-1.51 4.32-1.77 4.81-1.78.11 0 .35.03.5.16.13.1.17.23.18.33.01.07.01.21 0 .33z"/></svg>
-                        تلگرام پشتیبانی
-                    </a>
-                    <a href="tel:+989384363200" class="flex items-center gap-4 px-12 py-6 bg-white text-slate-900 hover:bg-slate-50 rounded-3xl font-black shadow-2xl transition-all hover:-translate-y-2 group">
-                        <svg class="w-7 h-7 text-emerald-500 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                        تماس مستقیم
-                    </a>
+    <!-- Detailed Personal Section -->
+    <section id="contact" class="max-w-7xl mx-auto px-6 pb-24">
+        <div class="glass-card rounded-[4rem] p-12 md:p-20 relative overflow-hidden">
+            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-600/10 blur-[100px]"></div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">چرا از کدهای <br> <span class="text-indigo-400">رضا حسیبی</span> استفاده کنیم؟</h2>
+                    <p class="text-gray-400 text-lg mb-10 leading-relaxed">
+                        تمامی کدهای موجود در این پلتفرم به صورت روزانه مانیتور می‌شوند تا از اعتبار آن‌ها اطمینان حاصل شود. هدف ما شفافیت و کمک به شما برای دریافت بالاترین پاداش‌های ممکن در بازار است.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="tel:09384363200" class="flex items-center gap-4 bg-white/5 p-5 rounded-3xl border border-white/5 hover:border-indigo-500 transition-all">
+                            <i class="fa fa-phone text-indigo-400 text-xl"></i>
+                            <span class="font-bold">09384363200</span>
+                        </a>
+                        <a href="mailto:rezahasibi@gmail.com" class="flex items-center gap-4 bg-white/5 p-5 rounded-3xl border border-white/5 hover:border-red-500 transition-all">
+                            <i class="fa fa-envelope text-red-400 text-xl"></i>
+                            <span class="font-bold">rezahasibi@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-8 glass-card rounded-[3rem] text-center">
+                        <i class="fab fa-github text-4xl mb-4 text-white"></i>
+                        <h4 class="font-black text-xl mb-1">گیت‌هاب</h4>
+                        <p class="text-gray-500 text-sm mb-4">rezahasibi</p>
+                        <a href="https://github.com/rezahasibi" class="text-xs text-indigo-400 font-bold underline">مشاهده پروفایل</a>
+                    </div>
+                    <div class="p-8 glass-card rounded-[3rem] text-center border-indigo-500/20">
+                        <i class="fab fa-telegram text-4xl mb-4 text-blue-400"></i>
+                        <h4 class="font-black text-xl mb-1">تلگرام</h4>
+                        <p class="text-gray-500 text-sm mb-4">@rezahasibi</p>
+                        <a href="https://t.me/rezahasibi" class="text-xs text-blue-400 font-bold underline">ارسال پیام</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 border-t border-slate-200 dark:border-slate-800 text-center">
-        <div class="flex justify-center items-center gap-3 mb-6">
-            <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.6em]">RefPro Official Portal | © 2026</span>
-        </div>
-        <p class="text-[10px] text-slate-400 font-bold max-w-lg mx-auto px-6">تمامی حقوق برای تیم ما محفوظ است. کدهای دعوت به صورت دوره‌ای توسط هوش مصنوعی و تیم پشتیبانی راستی‌آزمایی می‌شوند.</p>
+    <footer class="py-12 border-t border-white/5 text-center">
+        <p class="text-gray-500 text-xs tracking-[2px] uppercase">© 2026 Developed with Passion for Reza Hasibi</p>
     </footer>
 
     <!-- Toast -->
-    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 glass px-10 py-5 rounded-[2rem] shadow-2xl transition-all duration-700 opacity-0 translate-y-10 flex items-center gap-4 z-[100] border-none">
-        <div class="w-10 h-10 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-500/20">✓</div>
-        <span class="font-black text-sm text-slate-800 dark:text-white">کد معرف با موفقیت کپی شد!</span>
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] opacity-0 translate-y-10 transition-all duration-500">
+        <div class="bg-white text-black px-10 py-4 rounded-2xl shadow-2xl font-black flex items-center gap-3">
+            <i class="fa fa-check-circle text-emerald-600"></i>
+            کد کپی شد! از هدیه خود لذت ببرید.
+        </div>
     </div>
 
     <script>
-        function copy(id) {
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.remove('opacity-0', 'translate-y-10');
-                toast.classList.add('opacity-100', 'translate-y-0');
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'translate-y-10');
-                    toast.classList.remove('opacity-100', 'translate-y-0');
-                }, 4000);
+        function copyCode(text, element) {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0', 'translate-y-10');
+            toast.classList.add('opacity-1', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10');
+                toast.classList.remove('opacity-1', 'translate-y-0');
+            }, 3000);
+        }
+
+        function filterCards(category) {
+            // Update pills
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter logic
+            const cards = document.querySelectorAll('#cardsGrid > div');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         }
     </script>
