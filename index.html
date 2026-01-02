@@ -15,8 +15,9 @@
                 extend: {
                     colors: {
                         tapsi: '#ff4400',
-                        wepod: '#111827',
+                        wepod: '#00b050', // تغییر به سبز اختصاصی ویپاد
                         snapp: '#00d170',
+                        kifpool: '#1e40af',
                     },
                     fontFamily: { sans: ['Vazirmatn', 'sans-serif'] },
                 }
@@ -75,6 +76,121 @@
 
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-6 py-10 space-y-20">
+
+        <!-- KifPool Section (Blue) -->
+        <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl hover:shadow-blue-500/10 border-r-[6px] border-kifpool">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <div class="lg:col-span-7 p-8 md:p-14">
+                    <div class="flex items-center gap-5 mb-10">
+                        <div class="w-20 h-20 bg-kifpool rounded-[2.5rem] flex items-center justify-center text-white shadow-2xl shadow-blue-500/40 font-black text-4xl transform rotate-3">K</div>
+                        <div>
+                            <h2 class="text-4xl font-black text-kifpool">کیف‌پول من (KifPool)</h2>
+                            <p class="text-slate-500 font-bold text-sm">صرافی ارز دیجیتال و خدمات پرداخت نوین</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-8 text-right">
+                        <div>
+                            <h4 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="w-1.5 h-6 bg-kifpool rounded-full"></span>
+                                هدیه ویژه ورود به صرافی:
+                            </h4>
+                            <ul class="benefit-list">
+                                <li>
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span><strong>توکن رایگان (Airdrop):</strong> بلافاصله پس از ثبت‌نام و احراز هویت با لینک تیم ما، مقداری توکن رایگان به عنوان هدیه خوش‌آمدگویی دریافت کنید.</span>
+                                </li>
+                                <li>
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span><strong>خدمات بانکی با کریپتو:</strong> امکان خرید شارژ، اینترنت و پرداخت قبوض مستقیم از طریق دارایی‌های دیجیتال شما.</span>
+                                </li>
+                                <li>
+                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                    <span><strong>امنیت و سرعت:</strong> کیف‌پول اختصاصی با امنیت چندلایه و امکان خرید و فروش بیش از ۲۰۰۰ ارز دیجیتال مختلف.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="section-divider"></div>
+                        
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="feature-tag">بازار معاملاتی</span>
+                            <span class="feature-tag">خرید شارژ و قبض</span>
+                            <span class="feature-tag">ووچر پرفکت مانی</span>
+                            <span class="feature-tag">پشتیبانی ۲۴ ساعته</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-5 bg-gradient-to-b from-blue-50/50 to-transparent dark:from-blue-950/10 p-8 md:p-14 flex flex-col justify-center items-center border-r border-slate-100 dark:border-slate-800">
+                    <div class="w-full max-w-xs space-y-8 text-center">
+                        <div class="relative group">
+                            <span class="text-[10px] font-black tracking-[0.4em] text-blue-600/60 uppercase mb-3 block">کد دعوت تایید شده</span>
+                            <div class="p-6 bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-kifpool/40 shadow-2xl shadow-blue-500/5 group-hover:border-kifpool transition-colors duration-300">
+                                <code id="kifpool-code" class="text-3xl font-black text-kifpool tracking-tight font-mono uppercase">Y5aw5BvMDZML</code>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <button onclick="copy('kifpool-code')" class="w-full py-5 bg-kifpool hover:bg-blue-700 text-white rounded-[1.5rem] font-black shadow-2xl shadow-blue-500/40 transition-all active:scale-95 flex items-center justify-center gap-3">کپی کد و ثبت‌نام</button>
+                            <a href="https://kifpool.me/member_v2/register?referral=Y5aw5BvMDZML" target="_blank" class="block w-full py-5 bg-slate-900 text-white rounded-[1.5rem] font-black hover:bg-slate-800 transition-all text-sm shadow-xl">ورود مستقیم و دریافت هدیه</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wepod Section (New Green Theme) -->
+        <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl border-r-[6px] border-wepod">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                <div class="lg:col-span-7 p-8 md:p-14">
+                    <div class="flex items-center gap-5 mb-10">
+                        <div class="w-20 h-20 bg-wepod rounded-[2.5rem] flex items-center justify-center text-white shadow-2xl shadow-wepod/30 font-black text-4xl transform rotate-3">W</div>
+                        <div>
+                            <h2 class="text-4xl font-black text-wepod tracking-tight">ویپاد (Wepod)</h2>
+                            <p class="text-slate-500 font-bold text-sm">ترابانک پاسارگاد؛ بانک در جیب شما</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-8 text-right">
+                        <div>
+                            <h4 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
+                                <span class="w-1.5 h-6 bg-wepod rounded-full"></span>
+                                چرا باید همین حالا ویپاد را نصب کنید؟
+                            </h4>
+                            <ul class="benefit-list">
+                                <li>
+                                    <svg class="w-6 h-6 text-wepod" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                    <span><strong>تسهیلات بدون ضامن:</strong> دریافت وام‌های خرد (حساب پشتوانه) از ۱ تا ۵۰ میلیون تومان بدون نیاز به چک، سفته یا ضامن؛ فقط بر اساس کارکرد حساب.</span>
+                                </li>
+                                <li>
+                                    <svg class="w-6 h-6 text-wepod" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+                                    <span><strong>حساب دیجیتال رایگان:</strong> افتتاح حساب در کمتر از ۵ دقیقه، صدور کارت فیزیکی با طرح‌های متنوع و ارسال رایگان به سراسر ایران.</span>
+                                </li>
+                                <li>
+                                    <svg class="w-6 h-6 text-wepod" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                                    <span><strong>هدیه دعوت تیم ما:</strong> با وارد کردن کد دعوت در مرحله اول، پاداش نقدی مستقیم و امتیاز اولیه برای دریافت وام به شما تعلق می‌گیرد.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-5 bg-gradient-to-b from-wepod/5 to-transparent p-8 md:p-14 flex flex-col justify-center items-center border-r border-slate-100 dark:border-slate-800">
+                    <div class="w-full max-w-xs space-y-8 text-center">
+                        <div class="relative group">
+                            <span class="text-[10px] font-black tracking-[0.4em] text-wepod/60 uppercase mb-3 block">کد دعوت تایید شده ویپاد</span>
+                            <div class="p-6 bg-white dark:bg-slate-900 rounded-[2.5rem] border-2 border-dashed border-wepod/30 shadow-2xl shadow-wepod/5 group-hover:border-wepod transition-colors duration-300">
+                                <code id="vypad-code" class="text-4xl font-black text-wepod tracking-[0.2em] font-mono uppercase">CR5J3O</code>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <button onclick="copy('vypad-code')" class="w-full py-5 bg-wepod hover:bg-emerald-700 text-white rounded-[1.5rem] font-black shadow-2xl shadow-wepod/40 transition-all active:scale-95 flex items-center justify-center gap-3">کپی کد معرف</button>
+                            <a href="https://tilin.ir/DownLoad" target="_blank" class="block w-full py-5 border-2 border-slate-200 dark:border-slate-700 rounded-[1.5rem] font-black hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-sm shadow-lg">دانلود اپلیکیشن</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Tapsi Section (Orange) -->
         <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl hover:shadow-orange-500/10 border-r-[6px] border-tapsi">
@@ -135,59 +251,6 @@
                                 کپی کد و دریافت تخفیف
                             </button>
                             <a href="https://referral.tapsi.ir/passenger/90140V" target="_blank" class="block w-full py-5 bg-slate-900 text-white rounded-[1.5rem] font-black hover:bg-slate-800 transition-all text-sm shadow-xl">ورود مستقیم به تپسی</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Wepod Section (Dark/Gold) -->
-        <div class="glass rounded-[3.5rem] overflow-hidden card-inner border-none shadow-2xl border-r-[6px] border-wepod">
-            <div class="grid grid-cols-1 lg:grid-cols-12">
-                <div class="lg:col-span-7 p-8 md:p-14">
-                    <div class="flex items-center gap-5 mb-10">
-                        <div class="w-20 h-20 bg-wepod rounded-[2.5rem] flex items-center justify-center text-yellow-500 shadow-2xl shadow-yellow-500/10 font-black text-4xl italic transform rotate-3 border border-yellow-500/20">W</div>
-                        <div>
-                            <h2 class="text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Wepod | <span class="text-yellow-500">ویپاد</span></h2>
-                            <p class="text-slate-500 font-bold text-sm">بانک تمام دیجیتال در دستان شما</p>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-8 text-right">
-                        <div>
-                            <h4 class="text-xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-                                <span class="w-1.5 h-6 bg-yellow-500 rounded-full"></span>
-                                چرا باید همین حالا ویپاد را نصب کنید؟
-                            </h4>
-                            <ul class="benefit-list">
-                                <li>
-                                    <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                                    <span><strong>تسهیلات بدون ضامن:</strong> دریافت وام‌های خرد (ترابانک) از ۱ تا ۵۰ میلیون تومان بدون نیاز به چک، سفته یا ضامن؛ فقط بر اساس کارکرد حساب.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-                                    <span><strong>حساب دیجیتال رایگان:</strong> افتتاح حساب در کمتر از ۵ دقیقه، صدور کارت با طرح‌های متنوع و ارسال رایگان به سراسر ایران.</span>
-                                </li>
-                                <li>
-                                    <svg class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                                    <span><strong>هدیه دعوت تیم ما:</strong> با وارد کردن کد دعوت در مرحله اول، امتیاز اولیه برای دریافت سریع‌تر وام به شما تعلق می‌گیرد.</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="lg:col-span-5 bg-slate-50/50 dark:bg-slate-900/30 p-8 md:p-14 flex flex-col justify-center items-center border-r border-slate-100 dark:border-slate-800">
-                    <div class="w-full max-w-xs space-y-8 text-center">
-                        <div class="relative">
-                            <span class="text-[10px] font-black tracking-[0.4em] text-slate-400 uppercase mb-3 block">کد اختصاصی ورود به ویپاد</span>
-                            <div class="p-6 bg-white dark:bg-slate-950 rounded-[2.5rem] border-2 border-dashed border-indigo-500/30 shadow-2xl">
-                                <code id="vypad-code" class="text-4xl font-black text-indigo-600 dark:text-indigo-400 tracking-[0.2em] font-mono uppercase">CR5J3O</code>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <button onclick="copy('vypad-code')" class="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-[1.5rem] font-black shadow-2xl shadow-indigo-600/30 transition-all active:scale-95 flex items-center justify-center gap-3">کپی کد معرف</button>
-                            <a href="https://tilin.ir/DownLoad" target="_blank" class="block w-full py-5 border-2 border-slate-200 dark:border-slate-700 rounded-[1.5rem] font-black hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-sm">دانلود اپلیکیشن (مستقیم)</a>
                         </div>
                     </div>
                 </div>
