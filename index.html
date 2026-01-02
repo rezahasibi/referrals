@@ -3,411 +3,532 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مرجع رسمی کدهای هدیه و رفرال | رضا حسیبی</title>
-    <meta name="description" content="مجموعه کامل و بروز کدهای معرف ویپاد، اسنپ، تپسی، بلوبانک و غیره با هدایای نقدی ویژه. تایید شده توسط رضا حسیبی.">
+    <title>VIP Referral Center | مرکز کدهای معرف</title>
     
     <!-- External Assets -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #ec4899;
-            --dark-deep: #020617;
-            --glass: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.07);
+            --bg-body: #05070a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.1);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
         body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--dark-deep);
-            color: #f1f5f9;
-            scroll-behavior: smooth;
+            background-color: var(--bg-body);
+            color: #e2e8f0;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* Animated Mesh Background */
-        .bg-canvas {
+        #canvas-container {
             position: fixed;
-            inset: 0;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at 10% 10%, #1e1b4b 0%, transparent 40%),
-                        radial-gradient(circle at 90% 90%, #312e81 0%, transparent 40%),
-                        radial-gradient(circle at 50% 50%, #020617 0%, transparent 100%);
+            background: radial-gradient(circle at top right, #1e1b4b, #05070a);
         }
 
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        /* Typography & Header */
+        header {
+            padding: 120px 20px 60px;
+            text-align: center;
         }
 
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--primary);
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #fb7185 100%);
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
         }
 
-        .copy-button {
-            background: linear-gradient(90deg, #4f46e5, #7c3aed);
-            transition: all 0.3s ease;
+        .sub-title {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .copy-button:active { transform: scale(0.95); }
-
-        /* Floating Animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .float-icon { animation: float 4s ease-in-out infinite; }
-
-        .category-pill {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-        }
-        .category-pill.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        /* Search Bar */
+        .search-area {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .search-input {
+            width: 100%;
+            padding: 18px 30px;
+            border-radius: 50px;
+            border: 1px solid var(--border-glass);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Card Master Style */
+        .app-card {
+            position: relative;
+            background: var(--glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 30px;
+            padding: 35px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .app-card:hover {
+            transform: translateY(-12px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .app-card::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .app-card:hover::after { opacity: 0.15; }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .brand-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: var(--brand-color);
+            color: white;
+            box-shadow: 0 10px 20px var(--shadow-color);
+        }
+
+        .brand-name h3 { font-size: 1.5rem; color: #fff; }
+        .brand-name span { font-size: 0.8rem; color: var(--brand-color); text-transform: uppercase; font-weight: bold; }
+
+        .benefit-tag {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .benefit-tag ul { list-style: none; }
+        .benefit-tag li { margin-bottom: 10px; display: flex; align-items: start; }
+        .benefit-tag li i { color: var(--brand-color); margin-left: 10px; margin-top: 5px; font-size: 0.9rem; }
+
+        /* Referral Box */
+        .copy-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 18px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .code-val {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .copy-trigger {
+            background: var(--brand-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .copy-trigger:hover { filter: brightness(1.2); transform: scale(1.05); }
+
+        .action-link {
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background: var(--brand-color);
+            padding: 16px;
+            border-radius: 18px;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            transition: 0.3s;
+        }
+
+        .action-link:hover { transform: scale(1.02); opacity: 0.9; }
+
+        /* Branding Themes */
+        .vypod { --brand-color: #f59e0b; --shadow-color: rgba(245, 158, 11, 0.3); --accent-glow: #f59e0b; }
+        .tapsi { --brand-color: #ff5722; --shadow-color: rgba(255, 87, 34, 0.3); --accent-glow: #ff5722; }
+        .snapp { --brand-color: #22c55e; --shadow-color: rgba(34, 197, 94, 0.3); --accent-glow: #22c55e; }
+        .digipay { --brand-color: #0ea5e9; --shadow-color: rgba(14, 165, 233, 0.3); --accent-glow: #0ea5e9; }
+        .shahr { --brand-color: #ef4444; --shadow-color: rgba(239, 68, 68, 0.3); --accent-glow: #ef4444; }
+        .taaghche { --brand-color: #ec4899; --shadow-color: rgba(236, 72, 153, 0.3); --accent-glow: #ec4899; }
+        .saraf { --brand-color: #8b5cf6; --shadow-color: rgba(139, 92, 246, 0.3); --accent-glow: #8b5cf6; }
+        .zypod { --brand-color: #6366f1; --shadow-color: rgba(99, 102, 241, 0.3); --accent-glow: #6366f1; }
+        .kifpool { --brand-color: #14b8a6; --shadow-color: rgba(20, 184, 166, 0.3); --accent-glow: #14b8a6; }
+        .firouzeh { --brand-color: #06b6d4; --shadow-color: rgba(6, 182, 212, 0.3); --accent-glow: #06b6d4; }
+
+        @media (max-width: 768px) {
+            .grid-container { padding: 20px; grid-template-columns: 1fr; }
+            .main-title { font-size: 3rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="bg-canvas"></div>
 
-    <!-- Top Navigation -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-5 flex justify-between items-center backdrop-blur-xl bg-black/30 border-b border-white/5">
-        <div class="flex items-center gap-3">
-            <div class="p-2 bg-gradient-to-tr from-indigo-600 to-pink-600 rounded-lg shadow-lg">
-                <i class="fa-solid fa-gem text-white"></i>
-            </div>
-            <span class="text-xl font-black tracking-tighter">REZA <span class="text-indigo-400">HASIBI</span></span>
-        </div>
-        <div class="flex items-center gap-4">
-            <a href="https://t.me/rezahasibi" class="hidden sm:flex items-center gap-2 text-xs font-bold text-gray-300 hover:text-white transition-all">
-                <i class="fab fa-telegram text-blue-400"></i> @rezahasibi
-            </a>
-            <div class="h-4 w-[1px] bg-white/10 hidden sm:block"></div>
-            <a href="#contact" class="text-xs font-black uppercase tracking-widest text-indigo-400 hover:text-indigo-300">تماس</a>
-        </div>
-    </nav>
+<div id="canvas-container"></div>
 
-    <!-- Hero -->
-    <header class="relative pt-44 pb-24 px-6 text-center">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-8xl font-black mb-8 leading-[1.1]">
-                با یک کلیک <br> <span class="gradient-text tracking-tighter">هدیه‌ات را دریافت کن</span>
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
-                مجموعه‌ای از برترین کدهای معرف اپلیکیشن‌های بانکی و خدماتی که توسط من تایید شده‌اند. سودمندترین ثبت‌نام زندگی‌تان را تجربه کنید.
-            </p>
-            
-            <!-- Dynamic Filters -->
-            <div class="flex flex-wrap justify-center gap-3 overflow-x-auto pb-4">
-                <button onclick="filterCards('all')" class="category-pill active px-6 py-2 rounded-full text-xs font-bold">همه</button>
-                <button onclick="filterCards('bank')" class="category-pill px-6 py-2 rounded-full text-xs font-bold">بانک و مالی</button>
-                <button onclick="filterCards('travel')" class="category-pill px-6 py-2 rounded-full text-xs font-bold">سفر و حمل‌ونقل</button>
-                <button onclick="filterCards('digital')" class="category-pill px-6 py-2 rounded-full text-xs font-bold">دیجیتال و کتاب</button>
+<header data-aos="fade-down">
+    <h1 class="main-title">VIP REWARDS</h1>
+    <p class="sub-title">مجموعه کدهای دعوت اختصاصی و هدایای نقدی معتبر. همین حالا شروع کنید و پاداش بگیرید.</p>
+</header>
+
+<div class="search-area">
+    <input type="text" id="searchInput" class="search-input" placeholder="جستجو در بین اپلیکیشن‌ها و خدمات..." onkeyup="filterCards()">
+</div>
+
+<div class="grid-container" id="cardsGrid">
+
+    <!-- ویپاد -->
+    <div class="app-card vypod" data-aos="fade-up" data-name="ویپاد vypod">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-university"></i></div>
+            <div class="brand-name">
+                <span>Bank Pasargad</span>
+                <h3>ویپاد</h3>
             </div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-6 pb-32">
-        <div id="cardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <!-- Vypod Card -->
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-2 shadow-xl">
-                            <img src="https://vypod.ir/assets/images/logo.png" alt="ویپاد" class="max-w-full" onerror="this.src='https://via.placeholder.com/100?text=Vypod'">
-                        </div>
-                        <span class="text-[10px] font-black text-indigo-400 border border-indigo-400/30 px-3 py-1 rounded-full uppercase">دیجیتال بانک پاسارگاد</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">ویپاد (بانک پاسارگاد)</h3>
-                    <ul class="text-gray-400 text-sm space-y-3 mb-8">
-                        <li><i class="fa fa-check-circle text-indigo-500 ml-2"></i>دریافت تسهیلات بدون ضامن تا ۴۰۰ میلیون</li>
-                        <li><i class="fa fa-check-circle text-indigo-500 ml-2"></i>افتتاح حساب رایگان و ارسال کارت به درب منزل</li>
-                        <li><i class="fa fa-check-circle text-indigo-500 ml-2"></i>انتقال وجه تا ۲ میلیارد تومان</li>
-                    </ul>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('CR5J3O', this)">
-                        <span class="text-xs text-gray-500">کد دعوت:</span>
-                        <code class="text-lg font-black text-indigo-300 tracking-[4px]">CR5J3O</code>
-                        <i class="fa fa-copy text-indigo-500"></i>
-                    </div>
-                    <a href="https://tilin.ir/DownLoad" target="_blank" class="block text-center w-full py-3 bg-white/5 hover:bg-white/10 rounded-xl text-xs font-bold transition-all border border-white/5">دانلود مستقیم اپلیکیشن</a>
-                </div>
-            </div>
-
-            <!-- Snapp Card -->
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="travel">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center p-2">
-                            <i class="fa-solid fa-car text-white text-2xl"></i>
-                        </div>
-                        <span class="text-[10px] font-black text-emerald-400 border border-emerald-400/30 px-3 py-1 rounded-full uppercase">سوپر اپلیکیشن</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">اسنپ (Snapp)</h3>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-                        اولین سفر خود را با تخفیف ویژه ۲۰ تا ۳۰ هزار تومانی تجربه کنید. دسترسی به غذا، پزشک و بلیت سفر در یک جا.
-                    </p>
-                </div>
-                <div class="space-y-4">
-                    <a href="https://snapp.taxi/passenger/rezahasibi" target="_blank" class="copy-button block text-center w-full py-4 rounded-2xl text-sm font-bold shadow-lg shadow-emerald-500/20">دریافت تخفیف و ثبت‌نام</a>
-                </div>
-            </div>
-
-            <!-- Nobitex / Saraf (Integrated from previous list + Saraf) -->
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center p-2 border border-amber-500/20">
-                            <i class="fa-solid fa-coins text-amber-500 text-2xl"></i>
-                        </div>
-                        <span class="text-[10px] font-black text-amber-500 border border-amber-500/30 px-3 py-1 rounded-full uppercase">طلا و دلار</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">صراف (Saraf)</h3>
-                    <p class="text-gray-400 text-sm mb-6">۵۰ هزار تومان هدیه نقدی اولیه برای سرمایه‌گذاری در طلا، دلار و ارزهای دیجیتال بلافاصله پس از ثبت‌نام.</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('Y9X9Z', this)">
-                        <code class="text-lg font-black text-amber-400 tracking-[4px]">Y9X9Z</code>
-                        <i class="fa fa-copy text-amber-500"></i>
-                    </div>
-                    <a href="https://saraf.app/?ref=Y9X9Z" target="_blank" class="block text-center w-full py-3 bg-white/5 rounded-xl text-xs font-bold border border-white/5">لینک ثبت‌نام مستقیم</a>
-                </div>
-            </div>
-
-            <!-- Taaghche Card -->
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="digital">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-sky-500/10 rounded-2xl flex items-center justify-center p-2">
-                            <i class="fa-solid fa-book-open text-sky-400 text-2xl"></i>
-                        </div>
-                        <span class="text-[10px] font-black text-sky-400 border border-sky-400/30 px-3 py-1 rounded-full uppercase">کتابخانه دیجیتال</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">طاقچه (Taaghche)</h3>
-                    <ul class="text-gray-400 text-sm space-y-2 mb-8">
-                        <li><i class="fa fa-gift ml-2"></i>یک ماه استفاده رایگان از کتابخانه «بی‌نهایت»</li>
-                        <li><i class="fa fa-percent ml-2"></i>۳۰٪ تخفیف روی اولین خرید کتاب صوتی</li>
-                    </ul>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('invite30', this)">
-                        <code class="text-lg font-black text-sky-300">invite30</code>
-                        <i class="fa fa-clone text-sky-400"></i>
-                    </div>
-                    <a href="https://taaghche.com/invitation/kxp8075945" target="_blank" class="block text-center w-full py-3 bg-sky-600 rounded-xl text-xs font-bold">دریافت هدیه بی‌نهایت</a>
-                </div>
-            </div>
-
-            <!-- DigiPay -->
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center p-3 shadow-lg">
-                            <img src="https://www.mydigipay.com/static/media/digipay-logo.87e14e0f.svg" alt="دیجی پی">
-                        </div>
-                        <span class="text-[10px] font-black text-purple-400 border border-purple-400/30 px-3 py-1 rounded-full">پرداخت و وام</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">دیجی‌پی (DigiPay)</h3>
-                    <p class="text-gray-400 text-sm mb-6">دریافت اعتبار خرید اقساطی از دیجی‌کالا، خرید شارژ، پرداخت قبوض و کارت‌به‌کارت سریع با امنیت بالا.</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('EQFGTS', this)">
-                        <code class="text-lg font-black text-purple-300 tracking-[3px]">EQFGTS</code>
-                        <i class="fa fa-copy text-purple-500"></i>
-                    </div>
-                    <a href="https://www.mydigipay.com/download" target="_blank" class="block text-center w-full py-3 bg-white/5 rounded-xl text-xs font-bold border border-white/5">دانلود و نصب</a>
-                </div>
-            </div>
-
-            <!-- Zypod -->
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-col justify-between" data-category="bank">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="p-3 bg-pink-500/10 rounded-2xl">
-                            <i class="fa-solid fa-child-reaching text-2xl text-pink-400"></i>
-                        </div>
-                        <span class="text-[10px] font-black text-pink-400 border border-pink-400/30 px-3 py-1 rounded-full">بانک کودک</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">زیپاد (Zypod)</h3>
-                    <p class="text-gray-400 text-sm mb-6">افتتاح حساب دیجیتال کودک و نوجوان بانک پاسارگاد. دریافت کارت بانکی با طرح‌های فانتزی و آموزش مدیریت مالی به فرزندان.</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('17560743_zyp', this)">
-                        <code class="text-sm font-black text-pink-300">17560743_zyp</code>
-                        <i class="fa fa-copy text-pink-500"></i>
-                    </div>
-                    <a href="https://cafebazaar.ir/app/ir.zypod.app" target="_blank" class="block text-center w-full py-3 bg-pink-600/20 hover:bg-pink-600/30 text-pink-300 rounded-xl text-xs font-bold border border-pink-600/30">نصب از کافه بازار</a>
-                </div>
-            </div>
-
-            <!-- Shahr Bank -->
-            <div class="glass-card p-8 rounded-[3rem] flex flex-col justify-between" data-category="bank">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-building-columns text-white text-2xl"></i>
-                        </div>
-                        <span class="text-[10px] font-black text-red-400 border border-red-400/30 px-3 py-1 rounded-full">همراه شهر پلاس</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">بانک شهر (City Bank)</h3>
-                    <p class="text-gray-400 text-sm mb-6">با نصب اپلیکیشن و افتتاح سپرده آنلاین، از خدمات مدرن بانک شهر با کد معرف ویژه بهره‌مند شوید.</p>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between bg-black/40 p-4 rounded-2xl border border-white/5 cursor-pointer" onclick="copyCode('ecytbnqn', this)">
-                        <code class="text-lg font-black text-red-400">ecytbnqn</code>
-                        <i class="fa fa-copy text-red-500"></i>
-                    </div>
-                    <a href="https://www.shahr-bank.ir/general_content/114323/114323.htm" target="_blank" class="block text-center w-full py-3 bg-white/5 rounded-xl text-xs font-bold border border-white/5">صفحه رسمی بانک</a>
-                </div>
-            </div>
-
-            <!-- Tapsi -->
-            <div class="glass-card p-8 rounded-[3rem] flex flex-col justify-between" data-category="travel">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-taxi text-white text-2xl"></i>
-                        </div>
-                        <span class="text-[10px] font-black text-orange-400 border border-orange-400/30 px-3 py-1 rounded-full uppercase">سفر امن</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">تپسی (Tapsi)</h3>
-                    <p class="text-gray-400 text-sm mb-6">سفری به‌صرفه و با کیفیت. با استفاده از این لینک، اولین سفر خود را مهمان تپسی باشید یا تخفیف ویژه بگیرید.</p>
-                </div>
-                <a href="https://referral.tapsi.ir/passenger/90140V" target="_blank" class="block text-center w-full py-4 bg-orange-500 text-white rounded-2xl font-black text-sm shadow-lg shadow-orange-500/20">دریافت هدیه تپسی</a>
-            </div>
-
-            <!-- KifPool -->
-            <div class="glass-card p-8 rounded-[3rem] flex flex-col justify-between" data-category="bank">
-                <div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 bg-indigo-600/20 rounded-2xl flex items-center justify-center border border-indigo-600/30">
-                            <i class="fa-solid fa-wallet text-indigo-400 text-2xl"></i>
-                        </div>
-                        <span class="text-[10px] font-black text-indigo-300 border border-indigo-300/30 px-3 py-1 rounded-full">کیف پول من</span>
-                    </div>
-                    <h3 class="text-2xl font-black mb-4">KifPool.me</h3>
-                    <p class="text-gray-400 text-sm mb-6">خرید و فروش ارزهای دیجیتال، پرداخت قبوض و خرید آنلاین با امنیت فوق‌العاده بالا و رابط کاربری فارسی.</p>
-                </div>
-                <a href="https://kifpool.me/member_v2/register?referral=Y5aw5BvMDZML" target="_blank" class="block text-center w-full py-4 bg-indigo-600 text-white rounded-2xl font-black text-sm">ثبت‌نام و دریافت پاداش</a>
-            </div>
-
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> تسهیلات بدون ضامن و وثیقه تا ۴۰۰ میلیون تومان</li>
+                <li><i class="fas fa-check-circle"></i> افتتاح حساب کاملاً آنلاین و رایگان در ۵ دقیقه</li>
+                <li><i class="fas fa-check-circle"></i> ارسال کارت بانکی رایگان به درب منزل شما</li>
+                <li><i class="fas fa-check-circle"></i> سرمایه‌گذاری پرسود و طرح‌های بیمه‌ای نوین</li>
+            </ul>
         </div>
-    </main>
-
-    <!-- Detailed Personal Section -->
-    <section id="contact" class="max-w-7xl mx-auto px-6 pb-24">
-        <div class="glass-card rounded-[4rem] p-12 md:p-20 relative overflow-hidden">
-            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-600/10 blur-[100px]"></div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight">چرا از کدهای <br> <span class="text-indigo-400">رضا حسیبی</span> استفاده کنیم؟</h2>
-                    <p class="text-gray-400 text-lg mb-10 leading-relaxed">
-                        تمامی کدهای موجود در این پلتفرم به صورت روزانه مانیتور می‌شوند تا از اعتبار آن‌ها اطمینان حاصل شود. هدف ما شفافیت و کمک به شما برای دریافت بالاترین پاداش‌های ممکن در بازار است.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="tel:09384363200" class="flex items-center gap-4 bg-white/5 p-5 rounded-3xl border border-white/5 hover:border-indigo-500 transition-all">
-                            <i class="fa fa-phone text-indigo-400 text-xl"></i>
-                            <span class="font-bold">09384363200</span>
-                        </a>
-                        <a href="mailto:rezahasibi@gmail.com" class="flex items-center gap-4 bg-white/5 p-5 rounded-3xl border border-white/5 hover:border-red-500 transition-all">
-                            <i class="fa fa-envelope text-red-400 text-xl"></i>
-                            <span class="font-bold">rezahasibi@gmail.com</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-8 glass-card rounded-[3rem] text-center">
-                        <i class="fab fa-github text-4xl mb-4 text-white"></i>
-                        <h4 class="font-black text-xl mb-1">گیت‌هاب</h4>
-                        <p class="text-gray-500 text-sm mb-4">rezahasibi</p>
-                        <a href="https://github.com/rezahasibi" class="text-xs text-indigo-400 font-bold underline">مشاهده پروفایل</a>
-                    </div>
-                    <div class="p-8 glass-card rounded-[3rem] text-center border-indigo-500/20">
-                        <i class="fab fa-telegram text-4xl mb-4 text-blue-400"></i>
-                        <h4 class="font-black text-xl mb-1">تلگرام</h4>
-                        <p class="text-gray-500 text-sm mb-4">@rezahasibi</p>
-                        <a href="https://t.me/rezahasibi" class="text-xs text-blue-400 font-bold underline">ارسال پیام</a>
-                    </div>
-                </div>
-            </div>
+        <div class="copy-box">
+            <span class="code-val">CR5J3O</span>
+            <button class="copy-trigger" onclick="copyCode('CR5J3O')">کپی کد</button>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 text-center">
-        <p class="text-gray-500 text-xs tracking-[2px] uppercase">© 2026 Developed with Passion for Reza Hasibi</p>
-    </footer>
-
-    <!-- Toast -->
-    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] opacity-0 translate-y-10 transition-all duration-500">
-        <div class="bg-white text-black px-10 py-4 rounded-2xl shadow-2xl font-black flex items-center gap-3">
-            <i class="fa fa-check-circle text-emerald-600"></i>
-            کد کپی شد! از هدیه خود لذت ببرید.
-        </div>
+        <a href="https://tilin.ir/DownLoad" class="action-link">دریافت خدمات بانکی</a>
     </div>
 
-    <script>
-        function copyCode(text, element) {
-            const temp = document.createElement('textarea');
-            temp.value = text;
-            document.body.appendChild(temp);
-            temp.select();
-            document.execCommand('copy');
-            document.body.removeChild(temp);
+    <!-- تپسی -->
+    <div class="app-card tapsi" data-aos="fade-up" data-aos-delay="50" data-name="تپسی tapsi">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-car"></i></div>
+            <div class="brand-name">
+                <span>Ride Hailing</span>
+                <h3>تپسی</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> هدیه نقدی ویژه اولین سفر برای کاربران جدید</li>
+                <li><i class="fas fa-check-circle"></i> سفرهای اقتصادی، لاین، موتور و پیک</li>
+                <li><i class="fas fa-check-circle"></i> قابلیت اشتراک سفر با خانواده برای امنیت بیشتر</li>
+            </ul>
+        </div>
+        <a href="https://referral.tapsi.ir/passenger/90140V" class="action-link">سفر رایگان تپسی</a>
+    </div>
 
-            const toast = document.getElementById('toast');
-            toast.classList.remove('opacity-0', 'translate-y-10');
-            toast.classList.add('opacity-1', 'translate-y-0');
-            
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-10');
-                toast.classList.remove('opacity-1', 'translate-y-0');
-            }, 3000);
-        }
+    <!-- اسنپ -->
+    <div class="app-card snapp" data-aos="fade-up" data-aos-delay="100" data-name="اسنپ snapp">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-rocket"></i></div>
+            <div class="brand-name">
+                <span>Super App</span>
+                <h3>اسنپ</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> تا ۳۰,۰۰۰ تومان تخفیف اولین درخواست خودرو</li>
+                <li><i class="fas fa-check-circle"></i> سفارش غذا، مشاوره پزشکی و رزرو هتل</li>
+                <li><i class="fas fa-check-circle"></i> بزرگترین ناوگان حمل و نقل هوشمند ایران</li>
+            </ul>
+        </div>
+        <a href="https://snapp.taxi/passenger/" class="action-link">استفاده از تخفیف اسنپ</a>
+    </div>
 
-        function filterCards(category) {
-            // Update pills
-            document.querySelectorAll('.category-pill').forEach(pill => {
-                pill.classList.remove('active');
-            });
-            event.target.classList.add('active');
+    <!-- دیجی پی -->
+    <div class="app-card digipay" data-aos="fade-up" data-aos-delay="150" data-name="دیجی پی digipay">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-credit-card"></i></div>
+            <div class="brand-name">
+                <span>Fintech</span>
+                <h3>دیجی‌پی</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> خرید اقساطی کالا از دیجی‌کالا و فروشگاه‌ها</li>
+                <li><i class="fas fa-check-circle"></i> بازگشت وجه (Cashback) در هر تراکنش</li>
+                <li><i class="fas fa-check-circle"></i> پرداخت سریع قبوض و کارت به کارت ایمن</li>
+            </ul>
+        </div>
+        <div class="copy-box">
+            <span class="code-val">EQFGTS</span>
+            <button class="copy-trigger" onclick="copyCode('EQFGTS')">کپی کد</button>
+        </div>
+        <a href="https://www.mydigipay.com/download" class="action-link">نصب دیجی‌پی</a>
+    </div>
 
-            // Filter logic
-            const cards = document.querySelectorAll('#cardsGrid > div');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
+    <!-- بانک شهر -->
+    <div class="app-card shahr" data-aos="fade-up" data-name="بانک شهر shahr">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-building-columns"></i></div>
+            <div class="brand-name">
+                <span>Shahr Bank</span>
+                <h3>همراه شهر پلاس</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> افتتاح سپرده بانکی بدون مراجعه حضوری</li>
+                <li><i class="fas fa-check-circle"></i> مدیریت کامل تسهیلات و چک‌های صیادی</li>
+                <li><i class="fas fa-check-circle"></i> انتقال وجه هوشمند و خدمات VIP</li>
+            </ul>
+        </div>
+        <div class="copy-box">
+            <span class="code-val">ecytbnqn</span>
+            <button class="copy-trigger" onclick="copyCode('ecytbnqn')">کپی کد</button>
+        </div>
+        <a href="https://www.shahr-bank.ir/general_content/114323/114323.htm" class="action-link">افتتاح حساب شهر</a>
+    </div>
+
+    <!-- طاقچه -->
+    <div class="app-card taaghche" data-aos="fade-up" data-name="طاقچه taaghche">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-book"></i></div>
+            <div class="brand-name">
+                <span>Culture</span>
+                <h3>طاقچه</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> هدیه ۱ ماه اشتراک رایگان "بی‌نهایت"</li>
+                <li><i class="fas fa-check-circle"></i> ۳۰٪ تخفیف خرید اولین کتاب صوتی یا متنی</li>
+                <li><i class="fas fa-check-circle"></i> دسترسی به آرشیو عظیم ۵۰,۰۰۰ کتاب</li>
+            </ul>
+        </div>
+        <div class="copy-box">
+            <span class="code-val">invite30</span>
+            <button class="copy-trigger" onclick="copyCode('invite30')">کپی کد</button>
+        </div>
+        <a href="https://taaghche.com/invitation/kxp8075945" class="action-link">مطالعه رایگان</a>
+    </div>
+
+    <!-- صراف -->
+    <div class="app-card saraf" data-aos="fade-up" data-name="صراف saraf">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-coins"></i></div>
+            <div class="brand-name">
+                <span>Exchange</span>
+                <h3>صراف</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> دریافت ۵۰,۰۰۰ تومان هدیه نقدی بلافاصله پس از ثبت‌نام</li>
+                <li><i class="fas fa-check-circle"></i> سرمایه‌گذاری آسان در طلا، دلار و ارز دیجیتال</li>
+                <li><i class="fas fa-check-circle"></i> پلتفرم سریع و ایمن برای حفظ ارزش سرمایه</li>
+            </ul>
+        </div>
+        <div class="copy-box">
+            <span class="code-val">Y9X9Z</span>
+            <button class="copy-trigger" onclick="copyCode('Y9X9Z')">کپی کد</button>
+        </div>
+        <a href="https://saraf.app/?ref=Y9X9Z" class="action-link">دریافت هدیه ۵۰ تومانی</a>
+    </div>
+
+    <!-- زیپاد -->
+    <div class="app-card zypod" data-aos="fade-up" data-name="زیپاد zypod">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-child"></i></div>
+            <div class="brand-name">
+                <span>Kids Banking</span>
+                <h3>زیپاد</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> افتتاح حساب دیجیتال اختصاصی برای کودکان</li>
+                <li><i class="fas fa-check-circle"></i> دریافت کارت بانکی با طرح‌های فانتزی و جذاب</li>
+                <li><i class="fas fa-check-circle"></i> آموزش مدیریت مالی و پس‌انداز به فرزندان</li>
+            </ul>
+        </div>
+        <div class="copy-box">
+            <span class="code-val">17560743_zyp</span>
+            <button class="copy-trigger" onclick="copyCode('17560743_zyp')">کپی کد</button>
+        </div>
+        <a href="https://cafebazaar.ir/app/ir.zypod.app" class="action-link">نصب برای فرزندم</a>
+    </div>
+
+    <!-- کیف پول من -->
+    <div class="app-card kifpool" data-aos="fade-up" data-name="کیف پول من kifpool">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-wallet"></i></div>
+            <div class="brand-name">
+                <span>Crypto</span>
+                <h3>کیف پول من</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> بزرگترین صرافی ارز دیجیتال با بیش از ۲۰۰۰ رمزارز</li>
+                <li><i class="fas fa-check-circle"></i> خرید شارژ و اینترنت با استفاده از تتر و رمزارزها</li>
+                <li><i class="fas fa-check-circle"></i> امنیت بسیار بالا و پشتیبانی فارسی در لحظه</li>
+            </ul>
+        </div>
+        <a href="https://kifpool.me/member_v2/register?referral=Y5aw5BvMDZML" class="action-link">ثبت‌نام کریپتویی</a>
+    </div>
+
+    <!-- فیروزه -->
+    <div class="app-card firouzeh" data-aos="fade-up" data-name="فیروزه firouzeh">
+        <div class="brand-header">
+            <div class="brand-icon"><i class="fas fa-gem"></i></div>
+            <div class="brand-name">
+                <span>Stock Market</span>
+                <h3>اپلیکیشن فیروزه</h3>
+            </div>
+        </div>
+        <div class="benefit-tag">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> دریافت ۱۰ واحد هدیه صندوق ساحل با ثبت‌نام</li>
+                <li><i class="fas fa-check-circle"></i> راهکاری ساده برای سرمایه‌گذاری در بورس ایران</li>
+                <li><i class="fas fa-check-circle"></i> تحلیل‌های اختصاصی بازار سرمایه و سبدگردانی</li>
+            </ul>
+        </div>
+        <div class="copy-box">
+            <span class="code-val">DPF0K</span>
+            <button class="copy-trigger" onclick="copyCode('DPF0K')">کپی کد</button>
+        </div>
+        <a href="https://app.firouzeh.com?referral_code=DPF0K" class="action-link">دریافت جایزه فیروزه</a>
+    </div>
+
+</div>
+
+<footer style="text-align: center; padding: 60px; color: #475569;">
+    <p>© ۲۰۲۶ مرکز هوشمند کدهای دعوت | تمامی حقوق برای این پورتال محفوظ است</p>
+</footer>
+
+<!-- Background & Effects Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({ duration: 800, once: true });
+
+    // Background Particles
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+    const particles = new THREE.BufferGeometry();
+    const count = 3000;
+    const pos = new Float32Array(count * 3);
+    for(let i=0; i<count*3; i++) pos[i] = (Math.random() - 0.5) * 10;
+    particles.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const mat = new THREE.PointsMaterial({ size: 0.005, color: 0x6366f1 });
+    const points = new THREE.Points(particles, mat);
+    scene.add(points);
+    camera.position.z = 2;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.001;
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Copy Tool
+    function copyCode(code) {
+        navigator.clipboard.writeText(code);
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = "کپی شد!";
+        btn.style.background = "#fff";
+        btn.style.color = "#000";
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "";
+            btn.style.color = "";
+        }, 2000);
+    }
+
+    // Live Filter
+    function filterCards() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const cards = document.querySelectorAll('.app-card');
+        cards.forEach(card => {
+            const name = card.getAttribute('data-name');
+            card.style.display = name.includes(query) ? 'flex' : 'none';
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+</script>
+
 </body>
 </html>
 
